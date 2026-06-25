@@ -2,12 +2,12 @@ const farmers = require("../data/farmers");
 
 // GET all farmers
 const getAllFarmers = (req, res) => {
-   res.status(200).json({
-    success: true,
-    message: "Farmers fetched successfully",
-    count: farmers.length,
-    data: farmers
-});
+    res.status(200).json({
+        success: true,
+        message: "Farmers fetched successfully",
+        count: farmers.length,
+        data: farmers
+    });
 };
 
 // GET farmer by ID
@@ -17,44 +17,73 @@ const getFarmerById = (req, res) => {
     const farmer = farmers.find(f => f.id === id);
 
     if (!farmer) {
-       return res.status(404).json({
-    success: false,
-    message: "Farmer not found"
-});
+        return res.status(404).json({
+            success: false,
+            message: "Farmer not found"
+        });
     }
 
     res.status(200).json({
-    success: true,
-    message: "Farmer fetched successfully",
-    data: farmer
-});
+        success: true,
+        message: "Farmer fetched successfully",
+        data: farmer
+    });
 };
-const createFarmer = (req, res) => {
 
+// CREATE farmer
+const createFarmer = (req, res) => {
     const { name, crop, village } = req.body;
 
+    // Required fields
     if (!name || !crop || !village) {
-       return res.status(400).json({
-    success: false,
-    message: "All fields are required"
-});
+        return res.status(400).json({
+            success: false,
+            message: "All fields are required"
+        });
+    }
+
+    // Input validation
+    if (
+        name.trim().length < 3 ||
+        crop.trim().length < 2 ||
+        village.trim().length < 2
+    ) {
+        return res.status(400).json({
+            success: false,
+            message: "Please enter valid farmer details"
+        });
+    }
+
+    // Duplicate check
+    const farmerExists = farmers.some(
+        farmer =>
+            farmer.name.toLowerCase() === name.trim().toLowerCase() &&
+            farmer.village.toLowerCase() === village.trim().toLowerCase()
+    );
+
+    if (farmerExists) {
+        return res.status(409).json({
+            success: false,
+            message: "Farmer already exists"
+        });
     }
 
     const newFarmer = {
         id: farmers.length + 1,
-        name,
-        crop,
-        village
+        name: name.trim(),
+        crop: crop.trim(),
+        village: village.trim()
     };
 
     farmers.push(newFarmer);
 
     res.status(201).json({
-    success: true,
-    message: "Farmer created successfully",
-    data: newFarmer
-});
+        success: true,
+        message: "Farmer created successfully",
+        data: newFarmer
+    });
 };
+
 // UPDATE farmer
 const updateFarmer = (req, res) => {
     const id = parseInt(req.params.id);
@@ -63,22 +92,45 @@ const updateFarmer = (req, res) => {
 
     if (!farmer) {
         return res.status(404).json({
+            success: false,
             message: "Farmer not found"
         });
     }
 
     const { name, crop, village } = req.body;
 
-    if (name) farmer.name = name;
-    if (crop) farmer.crop = crop;
-    if (village) farmer.village = village;
+    if (name && name.trim().length < 3) {
+        return res.status(400).json({
+            success: false,
+            message: "Farmer name must be at least 3 characters"
+        });
+    }
 
-  res.status(200).json({
-    success: true,
-    message: "Farmer updated successfully",
-    data: farmer
-});
+    if (crop && crop.trim().length < 2) {
+        return res.status(400).json({
+            success: false,
+            message: "Crop name is invalid"
+        });
+    }
+
+    if (village && village.trim().length < 2) {
+        return res.status(400).json({
+            success: false,
+            message: "Village name is invalid"
+        });
+    }
+
+    if (name) farmer.name = name.trim();
+    if (crop) farmer.crop = crop.trim();
+    if (village) farmer.village = village.trim();
+
+    res.status(200).json({
+        success: true,
+        message: "Farmer updated successfully",
+        data: farmer
+    });
 };
+
 // DELETE farmer
 const deleteFarmer = (req, res) => {
     const id = parseInt(req.params.id);
@@ -87,6 +139,7 @@ const deleteFarmer = (req, res) => {
 
     if (index === -1) {
         return res.status(404).json({
+            success: false,
             message: "Farmer not found"
         });
     }
@@ -94,27 +147,30 @@ const deleteFarmer = (req, res) => {
     farmers.splice(index, 1);
 
     res.status(200).json({
-    success: true,
-    message: "Farmer deleted successfully"
-});
+        success: true,
+        message: "Farmer deleted successfully"
+    });
 };
+
 // SEARCH farmers
 const searchFarmers = (req, res) => {
     const query = (req.query.q || "").toLowerCase();
 
-    const results = farmers.filter(f =>
-        f.name.toLowerCase().includes(query) ||
-        f.crop.toLowerCase().includes(query) ||
-        f.village.toLowerCase().includes(query)
+    const results = farmers.filter(
+        farmer =>
+            farmer.name.toLowerCase().includes(query) ||
+            farmer.crop.toLowerCase().includes(query) ||
+            farmer.village.toLowerCase().includes(query)
     );
 
-   res.status(200).json({
-    success: true,
-    message: "Search completed successfully",
-    count: results.length,
-    data: results
-});
+    res.status(200).json({
+        success: true,
+        message: "Search completed successfully",
+        count: results.length,
+        data: results
+    });
 };
+
 module.exports = {
     getAllFarmers,
     getFarmerById,
