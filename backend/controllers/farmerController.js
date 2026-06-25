@@ -40,9 +40,62 @@ const createFarmer = (req, res) => {
 
     res.status(201).json(newFarmer);
 };
+// UPDATE farmer
+const updateFarmer = (req, res) => {
+    const id = parseInt(req.params.id);
 
+    const farmer = farmers.find(f => f.id === id);
+
+    if (!farmer) {
+        return res.status(404).json({
+            message: "Farmer not found"
+        });
+    }
+
+    const { name, crop, village } = req.body;
+
+    if (name) farmer.name = name;
+    if (crop) farmer.crop = crop;
+    if (village) farmer.village = village;
+
+    res.status(200).json({
+        message: "Farmer updated successfully",
+        farmer
+    });
+};
+// DELETE farmer
+const deleteFarmer = (req, res) => {
+    const id = parseInt(req.params.id);
+
+    const index = farmers.findIndex(f => f.id === id);
+
+    if (index === -1) {
+        return res.status(404).json({
+            message: "Farmer not found"
+        });
+    }
+
+    farmers.splice(index, 1);
+
+    res.status(204).send();
+};
+// SEARCH farmers
+const searchFarmers = (req, res) => {
+    const query = (req.query.q || "").toLowerCase();
+
+    const results = farmers.filter(f =>
+        f.name.toLowerCase().includes(query) ||
+        f.crop.toLowerCase().includes(query) ||
+        f.village.toLowerCase().includes(query)
+    );
+
+    res.status(200).json(results);
+};
 module.exports = {
     getAllFarmers,
     getFarmerById,
-    createFarmer
+    createFarmer,
+    updateFarmer,
+    deleteFarmer,
+    searchFarmers
 };
