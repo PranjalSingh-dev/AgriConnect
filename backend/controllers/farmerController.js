@@ -2,7 +2,12 @@ const farmers = require("../data/farmers");
 
 // GET all farmers
 const getAllFarmers = (req, res) => {
-    res.status(200).json(farmers);
+   res.status(200).json({
+    success: true,
+    message: "Farmers fetched successfully",
+    count: farmers.length,
+    data: farmers
+});
 };
 
 // GET farmer by ID
@@ -12,21 +17,27 @@ const getFarmerById = (req, res) => {
     const farmer = farmers.find(f => f.id === id);
 
     if (!farmer) {
-        return res.status(404).json({
-            message: "Farmer not found"
-        });
+       return res.status(404).json({
+    success: false,
+    message: "Farmer not found"
+});
     }
 
-    res.status(200).json(farmer);
+    res.status(200).json({
+    success: true,
+    message: "Farmer fetched successfully",
+    data: farmer
+});
 };
 const createFarmer = (req, res) => {
 
     const { name, crop, village } = req.body;
 
     if (!name || !crop || !village) {
-        return res.status(400).json({
-            message: "All fields are required"
-        });
+       return res.status(400).json({
+    success: false,
+    message: "All fields are required"
+});
     }
 
     const newFarmer = {
@@ -38,7 +49,11 @@ const createFarmer = (req, res) => {
 
     farmers.push(newFarmer);
 
-    res.status(201).json(newFarmer);
+    res.status(201).json({
+    success: true,
+    message: "Farmer created successfully",
+    data: newFarmer
+});
 };
 // UPDATE farmer
 const updateFarmer = (req, res) => {
@@ -58,10 +73,11 @@ const updateFarmer = (req, res) => {
     if (crop) farmer.crop = crop;
     if (village) farmer.village = village;
 
-    res.status(200).json({
-        message: "Farmer updated successfully",
-        farmer
-    });
+  res.status(200).json({
+    success: true,
+    message: "Farmer updated successfully",
+    data: farmer
+});
 };
 // DELETE farmer
 const deleteFarmer = (req, res) => {
@@ -77,7 +93,10 @@ const deleteFarmer = (req, res) => {
 
     farmers.splice(index, 1);
 
-    res.status(204).send();
+    res.status(200).json({
+    success: true,
+    message: "Farmer deleted successfully"
+});
 };
 // SEARCH farmers
 const searchFarmers = (req, res) => {
@@ -89,7 +108,12 @@ const searchFarmers = (req, res) => {
         f.village.toLowerCase().includes(query)
     );
 
-    res.status(200).json(results);
+   res.status(200).json({
+    success: true,
+    message: "Search completed successfully",
+    count: results.length,
+    data: results
+});
 };
 module.exports = {
     getAllFarmers,
