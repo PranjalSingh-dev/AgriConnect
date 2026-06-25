@@ -1,7 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const errorHandler = require("./middleware/errorMiddleware");
 const farmerRoutes = require("./routes/farmerRoutes");
+
+
 
 dotenv.config();
 
@@ -18,6 +21,8 @@ app.get("/", (req, res) => {
 app.use("/api/farmers", farmerRoutes);
 
 const PORT = process.env.PORT || 5000;
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
