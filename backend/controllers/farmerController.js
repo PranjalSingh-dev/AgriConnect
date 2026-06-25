@@ -170,12 +170,45 @@ const searchFarmers = (req, res) => {
         data: results
     });
 };
+// GET farmers by crop
+const getFarmersByCrop = (req, res) => {
 
+    const crop = req.params.crop.toLowerCase();
+
+    const filteredFarmers = farmers.filter(
+        farmer => farmer.crop.toLowerCase() === crop
+    );
+
+    res.status(200).json({
+        success: true,
+        message: "Farmers fetched successfully",
+        count: filteredFarmers.length,
+        data: filteredFarmers
+    });
+};
+// GET farmers by village
+const getFarmersByVillage = (req, res) => {
+
+    const village = req.params.village.toLowerCase();
+
+    const filteredFarmers = farmers.filter(
+        farmer => farmer.village.toLowerCase() === village
+    );
+
+    res.status(200).json({
+        success: true,
+        message: "Farmers fetched successfully",
+        count: filteredFarmers.length,
+        data: filteredFarmers
+    });
+};
 module.exports = {
     getAllFarmers,
     getFarmerById,
     createFarmer,
     updateFarmer,
     deleteFarmer,
-    searchFarmers
+    searchFarmers,
+    getFarmersByCrop,
+    getFarmersByVillage
 };

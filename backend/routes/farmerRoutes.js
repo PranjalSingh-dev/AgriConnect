@@ -7,13 +7,18 @@ const {
     createFarmer,
     updateFarmer,
     deleteFarmer,
-    searchFarmers
+    searchFarmers,
+    getFarmersByCrop,
+    getFarmersByVillage
 } = require("../controllers/farmerController");
 
 router.get("/", getAllFarmers);
 
-// IMPORTANT: This must come before "/:id"
 router.get("/search", searchFarmers);
+
+router.get("/crop/:crop", getFarmersByCrop);
+
+router.get("/village/:village", getFarmersByVillage);
 
 router.get("/:id", getFarmerById);
 
