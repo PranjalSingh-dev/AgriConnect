@@ -12,20 +12,17 @@ const {
     getFarmersByVillage
 } = require("../controllers/farmerController");
 
+const { protect } = require("../middleware/authMiddleware");
+
 router.get("/", getAllFarmers);
-
 router.get("/search", searchFarmers);
-
 router.get("/crop/:crop", getFarmersByCrop);
-
 router.get("/village/:village", getFarmersByVillage);
-
 router.get("/:id", getFarmerById);
 
-router.post("/", createFarmer);
-
-router.put("/:id", updateFarmer);
-
-router.delete("/:id", deleteFarmer);
+// Protected routes (requires user login)
+router.post("/", protect, createFarmer);
+router.put("/:id", protect, updateFarmer);
+router.delete("/:id", protect, deleteFarmer);
 
 module.exports = router;

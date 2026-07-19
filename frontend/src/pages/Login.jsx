@@ -1,20 +1,114 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Toast from "../components/ui/Toast";
+import Loader from "../components/ui/Loader";
 
 function Login() {
   const [tab, setTab] = useState("login"); // "login" | "register"
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState(null);
+  const navigate = useNavigate();
+
+  const showToast = (message, type = "success") => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000);
+  };
+
+  // Handle OAuth callback parameters on mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+    const name = params.get("name");
+    const email = params.get("email");
+    const id = params.get("id");
+
+    if (token && name && email && id) {
+      localStorage.setItem("token", token);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          name: decodeURIComponent(name),
+          email: decodeURIComponent(email),
+          id: id,
+        })
+      );
+      showToast("Signed in with Google successfully!");
+      // Clear URL parameters
+      window.history.replaceState({}, document.title, window.location.pathname);
+      setTimeout(() => navigate("/dashboard"), 1500);
+    }
+  }, [navigate]);
 
   const handleChange = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Placeholder — connect to API
-    alert(`${tab === "login" ? "Login" : "Registration"} submitted!`);
+
+    if (tab === "register" && form.name.trim().length < 2) {
+      showToast("Name must be at least 2 characters", "error");
+      return;
+    }
+    if (form.email.trim().length === 0) {
+      showToast("Email is required", "error");
+      return;
+    }
+    if (form.password.length < 6) {
+      showToast("Password must be at least 6 characters", "error");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const url =
+        tab === "login"
+          ? "http://localhost:5000/api/auth/login"
+          : "http://localhost:5000/api/auth/register";
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          email: form.email.trim(),
+          password: form.password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        localStorage.setItem("token", data.data.token);
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            name: data.data.name,
+            email: data.data.email,
+            id: data.data._id || data.data.id,
+          })
+        );
+        showToast(
+          tab === "login" ? "Welcome back!" : "Account registered successfully!"
+        );
+        setTimeout(() => navigate("/dashboard"), 1500);
+      } else {
+        showToast(data.message || "Authentication failed", "error");
+      }
+    } catch (err) {
+      showToast("Unable to connect to auth server", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:5000/api/auth/google";
   };
 
   return (
@@ -266,6 +360,7 @@ function Login() {
                 <button
                   id="auth-submit-btn"
                   type="submit"
+                  disabled={loading}
                   style={{
                     marginTop: "8px",
                     width: "100%",
@@ -279,6 +374,10 @@ function Login() {
                     cursor: "pointer",
                     boxShadow: "0 6px 20px rgba(22,163,74,0.35)",
                     transition: "all 0.25s ease",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "10px",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = "translateY(-1px)";
@@ -289,7 +388,8 @@ function Login() {
                     e.currentTarget.style.boxShadow = "0 6px 20px rgba(22,163,74,0.35)";
                   }}
                 >
-                  {tab === "login" ? "Sign In →" : "Create Account →"}
+                  {loading && <Loader size="20px" />}
+                  {loading ? "Processing..." : tab === "login" ? "Sign In →" : "Create Account →"}
                 </button>
               </form>
 
@@ -307,45 +407,38 @@ function Login() {
                 <div style={{ flex: 1, height: "1px", background: "var(--gray-200)" }} />
               </div>
 
-              {/* Social buttons (placeholder) */}
-              <div style={{ display: "flex", gap: "12px" }}>
-                {[
-                  { icon: "G", label: "Google", color: "#db4437" },
-                  { icon: "f", label: "Facebook", color: "#1877f2" },
-                ].map((s) => (
-                  <button
-                    key={s.label}
-                    id={`auth-${s.label.toLowerCase()}-btn`}
-                    style={{
-                      flex: 1,
-                      padding: "11px",
-                      borderRadius: "10px",
-                      border: "1.5px solid var(--gray-200)",
-                      background: "#fff",
-                      cursor: "pointer",
-                      fontWeight: 700,
-                      fontSize: "0.95rem",
-                      color: s.color,
-                      transition: "all 0.2s ease",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      gap: "8px",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "#f9fafb";
-                      e.currentTarget.style.borderColor = s.color + "55";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "#fff";
-                      e.currentTarget.style.borderColor = "var(--gray-200)";
-                    }}
-                  >
-                    {s.icon}
-                    <span style={{ fontSize: "0.8rem", color: "var(--gray-600)" }}>{s.label}</span>
-                  </button>
-                ))}
-              </div>
+              {/* Google Social button */}
+              <button
+                id="auth-google-btn"
+                onClick={handleGoogleLogin}
+                style={{
+                  width: "100%",
+                  padding: "12px",
+                  borderRadius: "10px",
+                  border: "1.5px solid var(--gray-200)",
+                  background: "#fff",
+                  cursor: "pointer",
+                  fontWeight: 700,
+                  fontSize: "0.95rem",
+                  color: "#374151",
+                  transition: "all 0.2s ease",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "#f9fafb";
+                  e.currentTarget.style.borderColor = "#4285F455";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "#fff";
+                  e.currentTarget.style.borderColor = "var(--gray-200)";
+                }}
+              >
+                <span style={{ color: "#4285F4", fontWeight: 900 }}>G</span>
+                <span style={{ fontSize: "0.9rem", color: "var(--gray-600)" }}>Sign In with Google</span>
+              </button>
 
               <p style={{ textAlign: "center", marginTop: "24px", color: "var(--gray-400)", fontSize: "0.825rem" }}>
                 {tab === "login" ? "Don't have an account? " : "Already have an account? "}
@@ -387,6 +480,7 @@ function Login() {
         </div>
       </div>
 
+      {toast && <Toast message={toast.message} type={toast.type} />}
       <Footer />
     </>
   );

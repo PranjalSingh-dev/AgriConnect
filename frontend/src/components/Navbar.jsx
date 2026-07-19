@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/marketplace", label: "Marketplace" },
+  { to: "/ai", label: "AI Advisor" },
   { to: "/about", label: "About" },
 ];
 
@@ -11,6 +12,8 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -21,6 +24,17 @@ function Navbar() {
   useEffect(() => {
     setMenuOpen(false);
   }, [location]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "/"; // Redirect to home
+  };
+
+  const activeLinks = [...navLinks];
+  if (token) {
+    activeLinks.push({ to: "/dashboard", label: "Dashboard" });
+  }
 
   return (
     <header
@@ -103,7 +117,7 @@ function Navbar() {
           }}
           className="desktop-nav"
         >
-          {navLinks.map((link) => {
+          {activeLinks.map((link) => {
             const isActive = location.pathname === link.to;
             return (
               <Link
@@ -134,33 +148,63 @@ function Navbar() {
             );
           })}
 
-          <Link
-            to="/login"
-            id="nav-login"
-            style={{
-              marginLeft: "8px",
-              padding: "9px 22px",
-              borderRadius: "99px",
-              fontWeight: 600,
-              fontSize: "0.95rem",
-              textDecoration: "none",
-              background: "linear-gradient(135deg, #16a34a, #22c55e)",
-              color: "#fff",
-              boxShadow: "0 4px 14px rgba(22,163,74,0.35)",
-              transition: "all 0.25s ease",
-              border: "2px solid transparent",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-1px)";
-              e.currentTarget.style.boxShadow = "0 6px 20px rgba(22,163,74,0.45)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 4px 14px rgba(22,163,74,0.35)";
-            }}
-          >
-            Get Started
-          </Link>
+          {token ? (
+            <button
+              onClick={handleLogout}
+              id="nav-logout"
+              style={{
+                marginLeft: "8px",
+                padding: "9px 22px",
+                borderRadius: "99px",
+                fontWeight: 600,
+                fontSize: "0.95rem",
+                border: "none",
+                cursor: "pointer",
+                background: "linear-gradient(135deg, #ef4444, #dc2626)",
+                color: "#fff",
+                boxShadow: "0 4px 14px rgba(239,68,68,0.35)",
+                transition: "all 0.25s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-1px)";
+                e.currentTarget.style.boxShadow = "0 6px 20px rgba(239,68,68,0.45)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 4px 14px rgba(239,68,68,0.35)";
+              }}
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              id="nav-login"
+              style={{
+                marginLeft: "8px",
+                padding: "9px 22px",
+                borderRadius: "99px",
+                fontWeight: 600,
+                fontSize: "0.95rem",
+                textDecoration: "none",
+                background: "linear-gradient(135deg, #16a34a, #22c55e)",
+                color: "#fff",
+                boxShadow: "0 4px 14px rgba(22,163,74,0.35)",
+                transition: "all 0.25s ease",
+                border: "2px solid transparent",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-1px)";
+                e.currentTarget.style.boxShadow = "0 6px 20px rgba(22,163,74,0.45)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 4px 14px rgba(22,163,74,0.35)";
+              }}
+            >
+              Get Started
+            </Link>
+          )}
         </div>
 
         {/* Hamburger */}
@@ -214,7 +258,7 @@ function Navbar() {
             animation: "slideDown 0.25s ease",
           }}
         >
-          {[...navLinks, { to: "/login", label: "Get Started" }].map((link) => (
+          {activeLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
@@ -231,6 +275,39 @@ function Navbar() {
               {link.label}
             </Link>
           ))}
+          {token ? (
+            <button
+              onClick={handleLogout}
+              style={{
+                display: "block",
+                width: "100%",
+                textAlign: "left",
+                padding: "14px 0",
+                border: "none",
+                background: "none",
+                fontWeight: 500,
+                color: "#ef4444",
+                fontSize: "1rem",
+                cursor: "pointer",
+              }}
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              style={{
+                display: "block",
+                padding: "14px 0",
+                fontWeight: 500,
+                color: "#16a34a",
+                textDecoration: "none",
+                fontSize: "1rem",
+              }}
+            >
+              Get Started
+            </Link>
+          )}
         </div>
       )}
 
