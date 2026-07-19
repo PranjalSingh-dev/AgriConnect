@@ -63,29 +63,27 @@ AgriConnect/
 │           ├── About.jsx
 │           ├── Dashboard.jsx
 │           ├── AddFarmer.jsx
-│           └── AIAssistant.jsx        ← 🤖 AI Crop Advisor (Week 7)
+│           └── AIAssistant.jsx        
 │
 ├── backend/
 │   ├── config/db.js
 │   ├── controllers/
 │   │   ├── farmerController.js
 │   │   ├── authController.js
-│   │   └── ai.controller.js           ← 🤖 Week 7
+│   │   └── ai.controller.js           
 │   ├── middleware/
 │   ├── models/ (Farmer.js, User.js)
 │   ├── routes/
 │   │   ├── farmerRoutes.js
 │   │   ├── authRoutes.js
-│   │   └── ai.routes.js               ← 🤖 Week 7
+│   │   └── ai.routes.js               
 │   ├── services/
-│   │   └── gemini.service.js          ← 🤖 Week 7
-│   ├── .env                           ← 🔒 NOT committed
+│   │   └── gemini.service.js          
+│   ├── .env                          
 │   ├── .env.example
 │   └── server.js
 │
 ├── .env.example
-├── PROMPTS.md                         ← 📝 AI Prompt Iterations (Week 7)
-├── W7_AIFeatureDemo_TBI-26100412.pdf  ← 📸 Demo Screenshots PDF (Week 7)
 └── README.md
 ```
 
@@ -255,7 +253,7 @@ This week I implemented an AI-Powered Crop Advisor using the Google Gemini 2.5 F
 
 ## 👤 Author
 
-**Pranjal Singh**  
-TBI Internship — Weeks 4–7  
-Intern ID: **TBI-26100412**  
+Pranjal Singh
+TBI Internship   
+Intern ID: TBI-26100412
 GitHub: [PranjalSingh-dev/AgriConnect](https://github.com/PranjalSingh-dev/AgriConnect)
