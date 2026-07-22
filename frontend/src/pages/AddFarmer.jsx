@@ -14,8 +14,8 @@ function AddFarmer() {
     name: "",
     crop: "",
     village: "",
-    phone: "+91 98765 43210",
-    rating: "4.5",
+    phone: "",
+    rating: "5.0",
   });
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(false);
@@ -45,8 +45,8 @@ function AddFarmer() {
               name: data.data?.name || "",
               crop: data.data?.crop || "",
               village: data.data?.village || "",
-              phone: data.data?.phone || "+91 98765 43210",
-              rating: data.data?.rating ? String(data.data.rating) : "4.5",
+              phone: data.data?.phone || "",
+              rating: data.data?.rating ? String(data.data.rating) : "5.0",
             });
           } else {
             showToast("Failed to fetch farmer details", "error");
@@ -295,7 +295,7 @@ function AddFarmer() {
               style={{
                 height: 6,
                 background:
-                  "linear-gradient(90deg, #14532d, #16a34a, #4ade80, #16a34a, #14532d)",
+                  "linear-gradient(90deg, #4f46e5, #7c3aed, #38bdf8, #7c3aed, #4f46e5)",
                 backgroundSize: "300% 100%",
                 animation: "heroShift 6s linear infinite",
               }}

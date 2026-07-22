@@ -1,8 +1,10 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Card from "../components/Card";
 import Footer from "../components/Footer";
+import Loader from "../components/ui/Loader";
 
 const features = [
   {
@@ -31,12 +33,6 @@ const features = [
   },
 ];
 
-const sampleFarmers = [
-  { name: "Ramesh Kumar", crop: "Wheat", village: "Amritsar, Punjab", rating: 5 },
-  { name: "Suresh Patel", crop: "Cotton", village: "Surat, Gujarat", rating: 4 },
-  { name: "Priya Devi",   crop: "Rice",  village: "Patna, Bihar",   rating: 5 },
-];
-
 const steps = [
   { num: "01", title: "Create Your Profile", desc: "Sign up as a farmer or buyer in under 2 minutes. Verify your identity for trusted access." },
   { num: "02", title: "List or Browse",       desc: "Farmers list their products with photos and prices. Buyers discover quality produce." },
@@ -44,6 +40,20 @@ const steps = [
 ];
 
 function Home() {
+  const [farmers, setFarmers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/farmers")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.data)) {
+          setFarmers(data.data);
+        }
+      })
+      .catch((err) => console.error("Error fetching homepage farmers:", err))
+      .finally(() => setLoading(false));
+  }, []);
   return (
     <>
       <Navbar />
@@ -67,13 +77,13 @@ function Home() {
             <span
               style={{
                 display: "inline-block",
-                background: "#f0fdf4",
-                color: "#16a34a",
-                border: "1px solid #bbf7d0",
+                background: "rgba(79,70,229,0.1)",
+                color: "#4f46e5",
+                border: "1px solid rgba(79,70,229,0.25)",
                 borderRadius: "99px",
                 padding: "6px 18px",
                 fontSize: "0.8rem",
-                fontWeight: 600,
+                fontWeight: 700,
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
                 marginBottom: "16px",
@@ -189,13 +199,13 @@ function Home() {
             <span
               style={{
                 display: "inline-block",
-                background: "#f0fdf4",
-                color: "#16a34a",
-                border: "1px solid #bbf7d0",
+                background: "rgba(245,158,11,0.1)",
+                color: "#d97706",
+                border: "1px solid rgba(245,158,11,0.25)",
                 borderRadius: "99px",
                 padding: "6px 18px",
                 fontSize: "0.8rem",
-                fontWeight: 600,
+                fontWeight: 700,
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
                 marginBottom: "16px",
@@ -231,7 +241,7 @@ function Home() {
                   borderRadius: "var(--radius-lg)",
                   padding: "36px 28px",
                   boxShadow: "var(--shadow-sm)",
-                  border: "1px solid rgba(22,163,74,0.1)",
+                  border: "1px solid #e2e8f0",
                   position: "relative",
                   overflow: "hidden",
                 }}
@@ -244,7 +254,7 @@ function Home() {
                     fontFamily: "var(--font-display)",
                     fontSize: "5rem",
                     fontWeight: 900,
-                    color: "var(--green-50)",
+                    color: "#f1f5f9",
                     lineHeight: 1,
                     pointerEvents: "none",
                     userSelect: "none",
@@ -260,13 +270,13 @@ function Home() {
                     width: "44px",
                     height: "44px",
                     borderRadius: "12px",
-                    background: "linear-gradient(135deg, #16a34a, #22c55e)",
+                    background: ["linear-gradient(135deg,#4f46e5,#7c3aed)", "linear-gradient(135deg,#f59e0b,#d97706)", "linear-gradient(135deg,#10b981,#059669)"][i % 3],
                     color: "#fff",
                     fontFamily: "var(--font-display)",
                     fontWeight: 800,
                     fontSize: "0.95rem",
                     marginBottom: "20px",
-                    boxShadow: "0 4px 12px rgba(22,163,74,0.3)",
+                    boxShadow: ["0 4px 12px rgba(79,70,229,0.3)", "0 4px 12px rgba(245,158,11,0.3)", "0 4px 12px rgba(16,185,129,0.3)"][i % 3],
                   }}
                 >
                   {i + 1}
@@ -314,13 +324,13 @@ function Home() {
               <span
                 style={{
                   display: "inline-block",
-                  background: "#f0fdf4",
-                  color: "#16a34a",
-                  border: "1px solid #bbf7d0",
+                  background: "rgba(16,185,129,0.1)",
+                  color: "#059669",
+                  border: "1px solid rgba(16,185,129,0.25)",
                   borderRadius: "99px",
                   padding: "6px 18px",
                   fontSize: "0.8rem",
-                  fontWeight: 600,
+                  fontWeight: 700,
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
                   marginBottom: "12px",
@@ -347,38 +357,49 @@ function Home() {
                 padding: "12px 24px",
                 borderRadius: "99px",
                 background: "transparent",
-                color: "#16a34a",
-                fontWeight: 600,
+                color: "#4f46e5",
+                fontWeight: 700,
                 fontSize: "0.95rem",
                 textDecoration: "none",
-                border: "2px solid #16a34a",
+                border: "2px solid #4f46e5",
                 transition: "all 0.25s ease",
                 whiteSpace: "nowrap",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#16a34a";
+                e.currentTarget.style.background = "#4f46e5";
                 e.currentTarget.style.color = "#fff";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = "#16a34a";
+                e.currentTarget.style.color = "#4f46e5";
               }}
             >
               View All →
             </Link>
           </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "24px",
-            }}
-          >
-            {sampleFarmers.map((farmer) => (
-              <Card key={farmer.name} {...farmer} />
-            ))}
-          </div>
+          {loading ? (
+            <div style={{ display: "flex", justifyContent: "center", padding: "40px" }}>
+              <Loader size="40px" />
+            </div>
+          ) : farmers.length === 0 ? (
+            <div style={{ textAlign: "center", padding: "40px", color: "var(--gray-500)" }}>
+              <p>No farmers listed yet. Be the first to register!</p>
+              <Link to="/add-farmer" style={{ color: "#16a34a", fontWeight: 600 }}>Register Now →</Link>
+            </div>
+          ) : (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                gap: "24px",
+              }}
+            >
+              {farmers.slice(0, 3).map((farmer) => (
+                <Card key={farmer._id || farmer.id || farmer.name} {...farmer} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -386,7 +407,7 @@ function Home() {
       <section
         style={{
           background:
-            "linear-gradient(135deg, #052e16 0%, #14532d 50%, #15803d 100%)",
+            "linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #1e293b 100%)",
           padding: "80px 24px",
         }}
       >
@@ -401,10 +422,10 @@ function Home() {
           }}
         >
           {[
-            { num: "500+", label: "Farmers Connected", icon: "👨‍🌾" },
-            { num: "1,000+", label: "Products Listed", icon: "🥬" },
-            { num: "50+", label: "Cities Reached", icon: "🗺️" },
-            { num: "98%", label: "Satisfaction Rate", icon: "⭐" },
+            { num: `${farmers.length > 0 ? farmers.length : 1}+`, label: "Verified Farmers", icon: "👨‍🌾", color: "#facc15" },
+            { num: `${farmers.length * 5 + 10}+`, label: "Products Listed", icon: "🥬", color: "#34d399" },
+            { num: "50+", label: "Cities Reached", icon: "🗺️", color: "#38bdf8" },
+            { num: "99%", label: "Satisfaction Rate", icon: "⭐", color: "#f43f5e" },
           ].map((stat) => (
             <div key={stat.label}>
               <div style={{ fontSize: "2.2rem", marginBottom: "8px" }}>
@@ -415,7 +436,7 @@ function Home() {
                   fontFamily: "var(--font-display)",
                   fontSize: "2.5rem",
                   fontWeight: 900,
-                  color: "#86efac",
+                  color: stat.color,
                   lineHeight: 1,
                   marginBottom: "8px",
                 }}
@@ -424,9 +445,11 @@ function Home() {
               </div>
               <div
                 style={{
-                  color: "rgba(255,255,255,0.6)",
+                  color: "rgba(255,255,255,0.7)",
                   fontSize: "0.875rem",
-                  fontWeight: 500,
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.06em",
                 }}
               >
                 {stat.label}
@@ -437,19 +460,19 @@ function Home() {
       </section>
 
       {/* ─── CTA ──────────────────────────────────────────────── */}
-      <section style={{ padding: "100px 24px", background: "#fff" }}>
+      <section style={{ padding: "100px 24px", background: "#f8fafc" }}>
         <div
           style={{
             maxWidth: "800px",
             margin: "0 auto",
             textAlign: "center",
-            background:
-              "linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #f0fdf4 100%)",
-            borderRadius: "var(--radius-2xl)",
+            background: "linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #1e293b 100%)",
+            borderRadius: "28px",
             padding: "72px 48px",
-            border: "1px solid #bbf7d0",
+            border: "1px solid rgba(79,70,229,0.2)",
             position: "relative",
             overflow: "hidden",
+            boxShadow: "0 30px 80px rgba(15,23,42,0.3)",
           }}
         >
           {/* Decorative blobs */}
@@ -457,12 +480,12 @@ function Home() {
             aria-hidden
             style={{
               position: "absolute",
-              top: "-40px",
-              right: "-40px",
-              width: "160px",
-              height: "160px",
+              top: "-60px",
+              right: "-60px",
+              width: "220px",
+              height: "220px",
               borderRadius: "50%",
-              background: "rgba(22,163,74,0.08)",
+              background: "radial-gradient(circle, rgba(245,158,11,0.22) 0%, transparent 70%)",
               pointerEvents: "none",
             }}
           />
@@ -470,30 +493,23 @@ function Home() {
             aria-hidden
             style={{
               position: "absolute",
-              bottom: "-30px",
-              left: "-30px",
-              width: "120px",
-              height: "120px",
+              bottom: "-40px",
+              left: "-40px",
+              width: "160px",
+              height: "160px",
               borderRadius: "50%",
-              background: "rgba(250,204,21,0.08)",
+              background: "radial-gradient(circle, rgba(56,189,248,0.18) 0%, transparent 70%)",
               pointerEvents: "none",
             }}
           />
 
-          <div
-            style={{
-              fontSize: "3rem",
-              marginBottom: "20px",
-            }}
-          >
-            🌱
-          </div>
+          <div style={{ fontSize: "3rem", marginBottom: "20px" }}>🚀</div>
           <h2
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "clamp(1.8rem, 4vw, 2.5rem)",
               fontWeight: 800,
-              color: "var(--gray-900)",
+              color: "#fff",
               marginBottom: "16px",
               lineHeight: 1.2,
             }}
@@ -502,7 +518,7 @@ function Home() {
           </h2>
           <p
             style={{
-              color: "var(--gray-500)",
+              color: "rgba(241,245,249,0.72)",
               fontSize: "1.05rem",
               maxWidth: "440px",
               margin: "0 auto 36px",
@@ -526,21 +542,21 @@ function Home() {
               style={{
                 padding: "14px 32px",
                 borderRadius: "99px",
-                background: "linear-gradient(135deg, #16a34a, #22c55e)",
+                background: "linear-gradient(135deg, #f59e0b, #d97706)",
                 color: "#fff",
                 fontWeight: 700,
                 fontSize: "1rem",
                 textDecoration: "none",
-                boxShadow: "var(--shadow-green)",
+                boxShadow: "0 8px 28px rgba(245,158,11,0.35)",
                 transition: "all 0.25s ease",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "translateY(-2px) scale(1.02)";
-                e.currentTarget.style.boxShadow = "0 12px 36px rgba(22,163,74,0.4)";
+                e.currentTarget.style.boxShadow = "0 16px 40px rgba(245,158,11,0.5)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "translateY(0) scale(1)";
-                e.currentTarget.style.boxShadow = "var(--shadow-green)";
+                e.currentTarget.style.boxShadow = "0 8px 28px rgba(245,158,11,0.35)";
               }}
             >
               Start for Free
@@ -551,21 +567,22 @@ function Home() {
               style={{
                 padding: "14px 32px",
                 borderRadius: "99px",
-                background: "transparent",
-                color: "#15803d",
+                background: "rgba(255,255,255,0.1)",
+                color: "#fff",
                 fontWeight: 600,
                 fontSize: "1rem",
                 textDecoration: "none",
-                border: "2px solid #16a34a",
+                border: "2px solid rgba(255,255,255,0.3)",
                 transition: "all 0.25s ease",
+                backdropFilter: "blur(8px)",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#16a34a";
-                e.currentTarget.style.color = "#fff";
+                e.currentTarget.style.background = "rgba(255,255,255,0.2)";
+                e.currentTarget.style.borderColor = "rgba(255,255,255,0.5)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = "#15803d";
+                e.currentTarget.style.background = "rgba(255,255,255,0.1)";
+                e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)";
               }}
             >
               Browse Marketplace

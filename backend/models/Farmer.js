@@ -19,11 +19,11 @@ const farmerSchema = new mongoose.Schema(
         },
         phone: {
             type: String,
-            default: "+91 98765 43210",
+            trim: true,
         },
         rating: {
             type: Number,
-            default: 4.5,
+            default: 5.0,
         },
         owner: {
             type: mongoose.Schema.Types.ObjectId,
