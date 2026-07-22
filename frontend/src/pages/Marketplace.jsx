@@ -49,7 +49,7 @@ function Marketplace() {
       <div
         style={{
           background:
-            "linear-gradient(135deg, #052e16 0%, #14532d 40%, #15803d 100%)",
+            "linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #312e81 100%)",
           paddingTop: "120px",
           paddingBottom: "60px",
           paddingLeft: "24px",
@@ -65,7 +65,7 @@ function Marketplace() {
           style={{
             position: "absolute", top: "-60px", right: "-60px",
             width: "280px", height: "280px", borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(74,222,128,0.12) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(245,158,11,0.2) 0%, transparent 70%)",
             pointerEvents: "none",
           }}
         />
@@ -74,7 +74,7 @@ function Marketplace() {
           style={{
             position: "absolute", bottom: "-40px", left: "-40px",
             width: "200px", height: "200px", borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(250,204,21,0.08) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(56,189,248,0.18) 0%, transparent 70%)",
             pointerEvents: "none",
           }}
         />
@@ -82,19 +82,19 @@ function Marketplace() {
         <span
           style={{
             display: "inline-block",
-            background: "rgba(255,255,255,0.12)",
-            border: "1px solid rgba(255,255,255,0.2)",
+            background: "rgba(245, 158, 11, 0.15)",
+            border: "1px solid rgba(245, 158, 11, 0.3)",
             borderRadius: "99px",
             padding: "6px 18px",
             fontSize: "0.8rem",
-            fontWeight: 600,
-            color: "rgba(255,255,255,0.85)",
+            fontWeight: 700,
+            color: "#fbbf24",
             letterSpacing: "0.08em",
             textTransform: "uppercase",
             marginBottom: "16px",
           }}
         >
-          🌾 Live Marketplace
+          🌾 Live Produce Marketplace
         </span>
 
         <h1
@@ -111,7 +111,7 @@ function Marketplace() {
         </h1>
         <p
           style={{
-            color: "rgba(255,255,255,0.65)",
+            color: "rgba(241, 245, 249, 0.78)",
             fontSize: "1.05rem",
             maxWidth: "480px",
             margin: "0 auto",
@@ -181,7 +181,7 @@ function Marketplace() {
                 transition: "border-color 0.2s",
                 background: "var(--gray-50)",
               }}
-              onFocus={(e) => (e.currentTarget.style.borderColor = "#16a34a")}
+              onFocus={(e) => (e.currentTarget.style.borderColor = "#4f46e5")}
               onBlur={(e) => (e.currentTarget.style.borderColor = "var(--gray-200)")}
             />
           </div>
@@ -204,9 +204,9 @@ function Marketplace() {
                   padding: "8px 16px",
                   borderRadius: "99px",
                   border: "1.5px solid",
-                  borderColor: selectedCrop === crop ? "#16a34a" : "var(--gray-200)",
+                  borderColor: selectedCrop === crop ? "#4f46e5" : "var(--gray-200)",
                   background: selectedCrop === crop
-                    ? "linear-gradient(135deg, #16a34a, #22c55e)"
+                    ? "linear-gradient(135deg, #4f46e5, #3b82f6)"
                     : "#fff",
                   color: selectedCrop === crop ? "#fff" : "var(--gray-600)",
                   fontWeight: selectedCrop === crop ? 600 : 400,
@@ -214,7 +214,7 @@ function Marketplace() {
                   cursor: "pointer",
                   transition: "all 0.2s ease",
                   boxShadow: selectedCrop === crop
-                    ? "0 4px 12px rgba(22,163,74,0.3)"
+                    ? "0 4px 12px rgba(79,70,229,0.3)"
                     : "none",
                 }}
               >

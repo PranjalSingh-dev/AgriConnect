@@ -15,7 +15,7 @@ function Footer() {
   return (
     <footer
       style={{
-        background: "linear-gradient(135deg, #052e16 0%, #14532d 100%)",
+        background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
         color: "rgba(255,255,255,0.75)",
         paddingTop: "60px",
       }}
@@ -54,7 +54,7 @@ function Footer() {
                   width: "36px",
                   height: "36px",
                   borderRadius: "10px",
-                  background: "linear-gradient(135deg, #16a34a, #4ade80)",
+                  background: "linear-gradient(135deg, #f59e0b, #d97706)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -150,7 +150,7 @@ function Footer() {
                         transition: "color 0.2s",
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.color = "#86efac";
+                        e.currentTarget.style.color = "#fbbf24";
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.color = "rgba(255,255,255,0.55)";

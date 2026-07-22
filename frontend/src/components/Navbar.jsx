@@ -127,19 +127,16 @@ function Navbar() {
                 style={{
                   padding: "8px 18px",
                   borderRadius: "99px",
-                  fontWeight: 500,
+                  fontWeight: 600,
                   fontSize: "0.95rem",
                   textDecoration: "none",
                   transition: "all 0.25s ease",
                   background: isActive
-                    ? "linear-gradient(135deg, #16a34a, #22c55e)"
+                    ? "linear-gradient(135deg, #4f46e5, #3b82f6)"
                     : "transparent",
-                  color: isActive ? "#fff" : scrolled ? "#374151" : "#fff",
+                  color: isActive ? "#fff" : scrolled ? "#1e293b" : "#fff",
                   boxShadow: isActive
-                    ? "0 4px 14px rgba(22,163,74,0.35)"
-                    : "none",
-                  textShadow: !isActive && !scrolled
-                    ? "0 1px 3px rgba(0,0,0,0.3)"
+                    ? "0 4px 14px rgba(79, 70, 229, 0.35)"
                     : "none",
                 }}
               >
@@ -184,22 +181,22 @@ function Navbar() {
                 marginLeft: "8px",
                 padding: "9px 22px",
                 borderRadius: "99px",
-                fontWeight: 600,
+                fontWeight: 700,
                 fontSize: "0.95rem",
                 textDecoration: "none",
-                background: "linear-gradient(135deg, #16a34a, #22c55e)",
+                background: "linear-gradient(135deg, #f59e0b, #d97706)",
                 color: "#fff",
-                boxShadow: "0 4px 14px rgba(22,163,74,0.35)",
+                boxShadow: "0 4px 14px rgba(245,158,11,0.35)",
                 transition: "all 0.25s ease",
                 border: "2px solid transparent",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "translateY(-1px)";
-                e.currentTarget.style.boxShadow = "0 6px 20px rgba(22,163,74,0.45)";
+                e.currentTarget.style.boxShadow = "0 6px 20px rgba(245,158,11,0.5)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "0 4px 14px rgba(22,163,74,0.35)";
+                e.currentTarget.style.boxShadow = "0 4px 14px rgba(245,158,11,0.35)";
               }}
             >
               Get Started

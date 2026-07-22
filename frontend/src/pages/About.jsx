@@ -8,10 +8,10 @@ const team = [
 ];
 
 const values = [
-  { icon: "🌱", title: "Farmer First",     desc: "Every decision we make is guided by the well-being and empowerment of India's farming community." },
-  { icon: "🔍", title: "Transparency",     desc: "Open, honest transactions. No hidden fees, no middlemen manipulation. Just fair trade." },
-  { icon: "⚡", title: "Accessibility",    desc: "Designed to work for everyone — simple enough for first-time smartphone users, powerful enough for pros." },
-  { icon: "🤝", title: "Trust & Integrity", desc: "Verified profiles, authentic reviews, and secure communications you can rely on." },
+  { icon: "🌱", title: "Farmer First",     desc: "Every decision we make is guided by the well-being and empowerment of India's farming community.", color: "#10b981" },
+  { icon: "🔍", title: "Transparency",     desc: "Open, honest transactions. No hidden fees, no middlemen manipulation. Just fair trade.", color: "#4f46e5" },
+  { icon: "⚡", title: "Accessibility",    desc: "Designed to work for everyone — simple enough for first-time smartphone users, powerful enough for pros.", color: "#f59e0b" },
+  { icon: "🤝", title: "Trust & Integrity", desc: "Verified profiles, authentic reviews, and secure communications you can rely on.", color: "#8b5cf6" },
 ];
 
 function About() {
@@ -22,8 +22,7 @@ function About() {
       {/* ─── Hero ───────────────────────────────────────────── */}
       <div
         style={{
-          background:
-            "linear-gradient(135deg, #052e16 0%, #14532d 40%, #15803d 100%)",
+          background: "linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #312e81 100%)",
           paddingTop: "130px",
           paddingBottom: "80px",
           paddingLeft: "24px",
@@ -33,11 +32,11 @@ function About() {
           overflow: "hidden",
         }}
       >
-        <div aria-hidden style={{ position:"absolute", top:"-80px", right:"-80px", width:"320px", height:"320px", borderRadius:"50%", background:"radial-gradient(circle,rgba(74,222,128,.12) 0%,transparent 70%)", pointerEvents:"none" }} />
-        <div aria-hidden style={{ position:"absolute", bottom:"-60px", left:"-60px", width:"240px", height:"240px", borderRadius:"50%", background:"radial-gradient(circle,rgba(250,204,21,.08) 0%,transparent 70%)", pointerEvents:"none" }} />
+        <div aria-hidden style={{ position:"absolute", top:"-80px", right:"-80px", width:"320px", height:"320px", borderRadius:"50%", background:"radial-gradient(circle,rgba(245,158,11,.22) 0%,transparent 70%)", pointerEvents:"none" }} />
+        <div aria-hidden style={{ position:"absolute", bottom:"-60px", left:"-60px", width:"240px", height:"240px", borderRadius:"50%", background:"radial-gradient(circle,rgba(56,189,248,.18) 0%,transparent 70%)", pointerEvents:"none" }} />
 
-        <span style={{ display:"inline-block", background:"rgba(255,255,255,0.12)", border:"1px solid rgba(255,255,255,0.2)", borderRadius:"99px", padding:"6px 18px", fontSize:"0.8rem", fontWeight:600, color:"rgba(255,255,255,0.85)", letterSpacing:"0.08em", textTransform:"uppercase", marginBottom:"16px" }}>
-          Our Story
+        <span style={{ display:"inline-block", background:"rgba(245,158,11,0.15)", border:"1px solid rgba(245,158,11,0.35)", borderRadius:"99px", padding:"6px 18px", fontSize:"0.8rem", fontWeight:700, color:"#fbbf24", letterSpacing:"0.08em", textTransform:"uppercase", marginBottom:"16px" }}>
+          Our Story & Mission
         </span>
         <h1
           style={{
@@ -53,7 +52,7 @@ function About() {
         </h1>
         <p
           style={{
-            color: "rgba(255,255,255,0.65)",
+            color: "rgba(241, 245, 249, 0.78)",
             fontSize: "1.1rem",
             maxWidth: "560px",
             margin: "0 auto",
@@ -79,7 +78,7 @@ function About() {
           className="about-grid"
         >
           <div>
-            <span style={{ display:"inline-block", background:"#f0fdf4", color:"#16a34a", border:"1px solid #bbf7d0", borderRadius:"99px", padding:"6px 18px", fontSize:"0.8rem", fontWeight:600, letterSpacing:"0.08em", textTransform:"uppercase", marginBottom:"16px" }}>
+            <span style={{ display:"inline-block", background:"rgba(79,70,229,0.1)", color:"#4f46e5", border:"1px solid rgba(79,70,229,0.25)", borderRadius:"99px", padding:"6px 18px", fontSize:"0.8rem", fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", marginBottom:"16px" }}>
               Our Mission
             </span>
             <h2
@@ -108,23 +107,24 @@ function About() {
             </p>
           </div>
 
-          {/* Visual */}
+          {/* Visual stats card */}
           <div
             style={{
-              background: "linear-gradient(135deg, #f0fdf4, #dcfce7)",
-              borderRadius: "var(--radius-xl)",
-              padding: "48px",
+              background: "linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%)",
+              borderRadius: "24px",
+              padding: "40px",
               display: "flex",
               flexDirection: "column",
-              gap: "20px",
-              border: "1px solid #bbf7d0",
+              gap: "16px",
+              border: "1px solid rgba(79,70,229,0.2)",
+              boxShadow: "0 20px 60px rgba(15,23,42,0.25)",
             }}
           >
             {[
-              { label: "Farmers Empowered",  value: "500+",  color: "#16a34a" },
-              { label: "Products Available", value: "1,000+", color: "#0284c7" },
-              { label: "Cities Covered",     value: "50+",   color: "#7c3aed" },
-              { label: "Satisfaction Rate",  value: "98%",   color: "#d97706" },
+              { label: "Farmers Empowered",  value: "500+",  color: "#facc15" },
+              { label: "Products Available", value: "1,000+", color: "#34d399" },
+              { label: "Cities Covered",     value: "50+",   color: "#38bdf8" },
+              { label: "Satisfaction Rate",  value: "98%",   color: "#f472b6" },
             ].map((item) => (
               <div
                 key={item.label}
@@ -132,13 +132,14 @@ function About() {
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  background: "#fff",
-                  borderRadius: "var(--radius-md)",
-                  padding: "16px 20px",
-                  boxShadow: "var(--shadow-sm)",
+                  background: "rgba(255,255,255,0.06)",
+                  borderRadius: "14px",
+                  padding: "14px 20px",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  backdropFilter: "blur(8px)",
                 }}
               >
-                <span style={{ color: "var(--gray-600)", fontWeight: 500, fontSize: "0.9rem" }}>
+                <span style={{ color: "rgba(241,245,249,0.75)", fontWeight: 500, fontSize: "0.9rem" }}>
                   {item.label}
                 </span>
                 <span
@@ -158,10 +159,10 @@ function About() {
       </section>
 
       {/* ─── Values ─────────────────────────────────────────── */}
-      <section className="pattern-bg" style={{ padding: "80px 24px" }}>
+      <section style={{ padding: "80px 24px", background: "#f8fafc" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: "56px" }}>
-            <span style={{ display:"inline-block", background:"#f0fdf4", color:"#16a34a", border:"1px solid #bbf7d0", borderRadius:"99px", padding:"6px 18px", fontSize:"0.8rem", fontWeight:600, letterSpacing:"0.08em", textTransform:"uppercase", marginBottom:"16px" }}>
+            <span style={{ display:"inline-block", background:"rgba(245,158,11,0.1)", color:"#d97706", border:"1px solid rgba(245,158,11,0.25)", borderRadius:"99px", padding:"6px 18px", fontSize:"0.8rem", fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", marginBottom:"16px" }}>
               Our Values
             </span>
             <h2
@@ -188,22 +189,26 @@ function About() {
                 key={v.title}
                 style={{
                   background: "#fff",
-                  borderRadius: "var(--radius-lg)",
+                  borderRadius: "20px",
                   padding: "32px 24px",
-                  boxShadow: "var(--shadow-sm)",
-                  border: "1px solid rgba(22,163,74,0.08)",
+                  boxShadow: "0 4px 16px -4px rgba(0,0,0,0.06)",
+                  border: "1px solid #e2e8f0",
                   transition: "all 0.3s ease",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-4px)";
-                  e.currentTarget.style.boxShadow = "var(--shadow-md)";
+                  e.currentTarget.style.transform = "translateY(-5px)";
+                  e.currentTarget.style.boxShadow = "0 20px 40px -8px rgba(0,0,0,0.12)";
+                  e.currentTarget.style.borderColor = v.color + "55";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "var(--shadow-sm)";
+                  e.currentTarget.style.boxShadow = "0 4px 16px -4px rgba(0,0,0,0.06)";
+                  e.currentTarget.style.borderColor = "#e2e8f0";
                 }}
               >
-                <div style={{ fontSize: "2rem", marginBottom: "14px" }}>{v.icon}</div>
+                <div style={{ width:48, height:48, borderRadius:14, background: v.color + "18", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.5rem", marginBottom:"16px" }}>
+                  {v.icon}
+                </div>
                 <h3
                   style={{
                     fontFamily: "var(--font-display)",
@@ -228,7 +233,7 @@ function About() {
       <section style={{ padding: "80px 24px", background: "#fff" }}>
         <div style={{ maxWidth: "900px", margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: "56px" }}>
-            <span style={{ display:"inline-block", background:"#f0fdf4", color:"#16a34a", border:"1px solid #bbf7d0", borderRadius:"99px", padding:"6px 18px", fontSize:"0.8rem", fontWeight:600, letterSpacing:"0.08em", textTransform:"uppercase", marginBottom:"16px" }}>
+            <span style={{ display:"inline-block", background:"rgba(139,92,246,0.1)", color:"#7c3aed", border:"1px solid rgba(139,92,246,0.25)", borderRadius:"99px", padding:"6px 18px", fontSize:"0.8rem", fontWeight:700, letterSpacing:"0.08em", textTransform:"uppercase", marginBottom:"16px" }}>
               The Team
             </span>
             <h2
@@ -250,73 +255,79 @@ function About() {
               gap: "24px",
             }}
           >
-            {team.map((member) => (
-              <div
-                key={member.name}
-                style={{
-                  background: "#fff",
-                  border: "1px solid var(--gray-100)",
-                  borderRadius: "var(--radius-lg)",
-                  padding: "32px 24px",
-                  textAlign: "center",
-                  boxShadow: "var(--shadow-sm)",
-                  transition: "all 0.3s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-4px)";
-                  e.currentTarget.style.boxShadow = "var(--shadow-md)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "var(--shadow-sm)";
-                }}
-              >
+            {team.map((member, idx) => {
+              const colors = ["#4f46e5", "#f59e0b", "#10b981"];
+              const col = colors[idx % colors.length];
+              return (
                 <div
+                  key={member.name}
                   style={{
-                    width: "72px",
-                    height: "72px",
+                    background: "#fff",
+                    border: "1px solid #e2e8f0",
                     borderRadius: "20px",
-                    background: "linear-gradient(135deg, #f0fdf4, #dcfce7)",
-                    border: "2px solid #bbf7d0",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "2rem",
-                    margin: "0 auto 16px",
+                    padding: "32px 24px",
+                    textAlign: "center",
+                    boxShadow: "0 4px 16px -4px rgba(0,0,0,0.06)",
+                    transition: "all 0.3s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-5px)";
+                    e.currentTarget.style.boxShadow = "0 20px 40px -8px rgba(0,0,0,0.12)";
+                    e.currentTarget.style.borderColor = col + "66";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "0 4px 16px -4px rgba(0,0,0,0.06)";
+                    e.currentTarget.style.borderColor = "#e2e8f0";
                   }}
                 >
-                  {member.emoji}
+                  <div
+                    style={{
+                      width: "72px",
+                      height: "72px",
+                      borderRadius: "20px",
+                      background: col + "18",
+                      border: `2px solid ${col}44`,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "2rem",
+                      margin: "0 auto 16px",
+                    }}
+                  >
+                    {member.emoji}
+                  </div>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 700,
+                      fontSize: "1rem",
+                      color: "var(--gray-800)",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    {member.name}
+                  </h3>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      background: col + "18",
+                      color: col,
+                      borderRadius: "99px",
+                      padding: "3px 12px",
+                      fontSize: "0.75rem",
+                      fontWeight: 700,
+                      marginBottom: "12px",
+                    }}
+                  >
+                    {member.role}
+                  </span>
+                  <p style={{ color: "var(--gray-500)", fontSize: "0.85rem", lineHeight: 1.6 }}>
+                    {member.desc}
+                  </p>
                 </div>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 700,
-                    fontSize: "1rem",
-                    color: "var(--gray-800)",
-                    marginBottom: "4px",
-                  }}
-                >
-                  {member.name}
-                </h3>
-                <span
-                  style={{
-                    display: "inline-block",
-                    background: "#f0fdf4",
-                    color: "#16a34a",
-                    borderRadius: "99px",
-                    padding: "3px 12px",
-                    fontSize: "0.75rem",
-                    fontWeight: 600,
-                    marginBottom: "12px",
-                  }}
-                >
-                  {member.role}
-                </span>
-                <p style={{ color: "var(--gray-500)", fontSize: "0.85rem", lineHeight: 1.6 }}>
-                  {member.desc}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

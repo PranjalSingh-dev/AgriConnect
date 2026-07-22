@@ -12,21 +12,21 @@ function Hero() {
         justifyContent: "center",
         overflow: "hidden",
         background:
-          "linear-gradient(135deg, #052e16 0%, #14532d 25%, #15803d 55%, #16a34a 80%, #22c55e 100%)",
+          "linear-gradient(135deg, #0f172a 0%, #1e1b4b 35%, #1e293b 70%, #0f172a 100%)",
       }}
     >
-      {/* Decorative blobs */}
+      {/* Decorative Blobs */}
       <div
         aria-hidden
         style={{
           position: "absolute",
-          top: "-120px",
-          right: "-120px",
-          width: "480px",
-          height: "480px",
+          top: "-100px",
+          right: "-100px",
+          width: "500px",
+          height: "500px",
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(74,222,128,0.18) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(245,158,11,0.22) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -34,13 +34,13 @@ function Hero() {
         aria-hidden
         style={{
           position: "absolute",
-          bottom: "-80px",
-          left: "-80px",
-          width: "320px",
-          height: "320px",
+          bottom: "-60px",
+          left: "-60px",
+          width: "400px",
+          height: "400px",
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(250,204,21,0.12) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(99,102,241,0.22) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -49,12 +49,13 @@ function Hero() {
         style={{
           position: "absolute",
           top: "40%",
-          left: "5%",
-          width: "200px",
-          height: "200px",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "600px",
+          height: "600px",
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)",
           pointerEvents: "none",
         }}
       />
@@ -68,7 +69,7 @@ function Hero() {
           top: "15%",
           right: "12%",
           fontSize: "3rem",
-          opacity: 0.25,
+          opacity: 0.3,
           animationDelay: "0.5s",
         }}
       >
@@ -82,11 +83,11 @@ function Hero() {
           top: "60%",
           left: "8%",
           fontSize: "2.5rem",
-          opacity: 0.2,
+          opacity: 0.3,
           animationDelay: "1.2s",
         }}
       >
-        🥦
+        ✨
       </div>
       <div
         aria-hidden
@@ -96,7 +97,7 @@ function Hero() {
           bottom: "20%",
           right: "20%",
           fontSize: "2rem",
-          opacity: 0.2,
+          opacity: 0.3,
           animationDelay: "0.8s",
         }}
       >
@@ -108,7 +109,7 @@ function Hero() {
         style={{
           position: "relative",
           zIndex: 1,
-          maxWidth: "900px",
+          maxWidth: "920px",
           margin: "0 auto",
           padding: "0 24px",
           textAlign: "center",
@@ -121,19 +122,20 @@ function Hero() {
             display: "inline-flex",
             alignItems: "center",
             gap: "8px",
-            background: "rgba(255,255,255,0.12)",
-            border: "1px solid rgba(255,255,255,0.2)",
+            background: "rgba(245, 158, 11, 0.15)",
+            border: "1px solid rgba(245, 158, 11, 0.35)",
             borderRadius: "99px",
-            padding: "8px 20px",
+            padding: "8px 22px",
             marginBottom: "28px",
-            color: "rgba(255,255,255,0.9)",
+            color: "#fbbf24",
             fontSize: "0.875rem",
-            fontWeight: 500,
-            backdropFilter: "blur(8px)",
+            fontWeight: 700,
+            letterSpacing: "0.04em",
+            backdropFilter: "blur(12px)",
           }}
         >
-          <span style={{ fontSize: "1rem" }}>🚀</span>
-          India's Digital Agricultural Marketplace
+          <span style={{ fontSize: "1.1rem" }}>🌟</span>
+          India's Premier Multi-Crop Agricultural Network
         </div>
 
         {/* Headline */}
@@ -141,20 +143,20 @@ function Hero() {
           className="animate-fade-in-up delay-100"
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "clamp(2.8rem, 6vw, 5rem)",
+            fontSize: "clamp(2.8rem, 6vw, 5.2rem)",
             fontWeight: 900,
             lineHeight: 1.1,
-            color: "#fff",
+            color: "#ffffff",
             marginBottom: "24px",
             letterSpacing: "-0.02em",
           }}
         >
-          Where Farmers Meet{" "}
+          Connecting Fields to{" "}
           <span
             style={{
               display: "inline-block",
               background:
-                "linear-gradient(90deg, #86efac, #facc15, #86efac)",
+                "linear-gradient(90deg, #facc15 0%, #38bdf8 50%, #34d399 100%)",
               backgroundSize: "200% auto",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -162,7 +164,7 @@ function Hero() {
               animation: "gradientShift 3s ease infinite",
             }}
           >
-            Opportunity
+            Future Prosperity
           </span>
         </h1>
 
@@ -171,14 +173,13 @@ function Hero() {
           className="animate-fade-in-up delay-200"
           style={{
             fontSize: "clamp(1rem, 2.5vw, 1.25rem)",
-            color: "rgba(255,255,255,0.78)",
-            maxWidth: "600px",
+            color: "rgba(241, 245, 249, 0.82)",
+            maxWidth: "640px",
             margin: "0 auto 40px",
             lineHeight: 1.7,
           }}
         >
-          Connecting farmers, buyers, and agricultural businesses through a
-          transparent, accessible, and powerful digital platform.
+          Empowering farmers, buyers, and agricultural leaders with direct trade, verified listings, and AI crop diagnostics.
         </p>
 
         {/* CTA Buttons */}
@@ -197,52 +198,51 @@ function Hero() {
             style={{
               padding: "16px 36px",
               borderRadius: "99px",
-              background: "linear-gradient(135deg, #ffffff, #f0fdf4)",
-              color: "#15803d",
-              fontWeight: 700,
+              background: "linear-gradient(135deg, #f59e0b, #d97706)",
+              color: "#ffffff",
+              fontWeight: 800,
               fontSize: "1rem",
               textDecoration: "none",
-              boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
+              boxShadow: "0 10px 30px rgba(245, 158, 11, 0.35)",
               transition: "all 0.3s ease",
               border: "none",
               cursor: "pointer",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-3px) scale(1.02)";
-              e.currentTarget.style.boxShadow = "0 12px 40px rgba(0,0,0,0.28)";
+              e.currentTarget.style.boxShadow = "0 14px 40px rgba(245, 158, 11, 0.5)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "translateY(0) scale(1)";
-              e.currentTarget.style.boxShadow = "0 8px 32px rgba(0,0,0,0.2)";
+              e.currentTarget.style.boxShadow = "0 10px 30px rgba(245, 158, 11, 0.35)";
             }}
           >
             Explore Marketplace →
           </Link>
           <Link
-            to="/about"
-            id="hero-learn-btn"
+            to="/ai"
+            id="hero-ai-btn"
             style={{
               padding: "16px 36px",
               borderRadius: "99px",
-              background: "rgba(255,255,255,0.12)",
+              background: "linear-gradient(135deg, #4f46e5, #3b82f6)",
               color: "#fff",
-              fontWeight: 600,
+              fontWeight: 700,
               fontSize: "1rem",
               textDecoration: "none",
-              border: "2px solid rgba(255,255,255,0.3)",
-              backdropFilter: "blur(8px)",
+              boxShadow: "0 10px 30px rgba(79, 70, 229, 0.35)",
               transition: "all 0.3s ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(255,255,255,0.2)";
-              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.transform = "translateY(-3px) scale(1.02)";
+              e.currentTarget.style.boxShadow = "0 14px 40px rgba(79, 70, 229, 0.5)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = "rgba(255,255,255,0.12)";
-              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.transform = "translateY(0) scale(1)";
+              e.currentTarget.style.boxShadow = "0 10px 30px rgba(79, 70, 229, 0.35)";
             }}
           >
-            Learn More
+            🌿 Try AI Advisor
           </Link>
         </div>
 
@@ -251,16 +251,16 @@ function Hero() {
           className="animate-fade-in-up delay-400"
           style={{
             display: "flex",
-            gap: "32px",
+            gap: "36px",
             justifyContent: "center",
             marginTop: "56px",
             flexWrap: "wrap",
           }}
         >
           {[
-            { num: "500+", label: "Farmers" },
-            { num: "1,000+", label: "Products" },
-            { num: "50+", label: "Cities" },
+            { num: "500+", label: "Verified Farmers", color: "#facc15" },
+            { num: "1,000+", label: "Fresh Crops", color: "#34d399" },
+            { num: "50+", label: "Trade Regions", color: "#38bdf8" },
           ].map((stat) => (
             <div key={stat.label} style={{ textAlign: "center" }}>
               <div
@@ -268,7 +268,7 @@ function Hero() {
                   fontFamily: "var(--font-display)",
                   fontSize: "1.8rem",
                   fontWeight: 800,
-                  color: "#86efac",
+                  color: stat.color,
                   lineHeight: 1,
                 }}
               >
@@ -277,9 +277,9 @@ function Hero() {
               <div
                 style={{
                   fontSize: "0.8rem",
-                  color: "rgba(255,255,255,0.6)",
+                  color: "rgba(255,255,255,0.65)",
                   marginTop: "4px",
-                  fontWeight: 500,
+                  fontWeight: 600,
                   textTransform: "uppercase",
                   letterSpacing: "0.08em",
                 }}
