@@ -72,9 +72,10 @@ function Dashboard() {
   };
 
   const stats = [
-    { label: "My Listings", value: myFarmers.length, icon: "🌾", color: "#16a34a", bg: "rgba(22,163,74,0.1)", desc: "Farmer profiles you manage" },
-    { label: "Total Marketplace", value: allFarmersCount, icon: "🌍", color: "#3b82f6", bg: "rgba(59,130,246,0.1)", desc: "All farmers on platform" },
-    { label: "Account Status", value: "Active", icon: "✅", color: "#f59e0b", bg: "rgba(245,158,11,0.1)", desc: "Your account is verified" },
+    { label: "My Listings", value: myFarmers.length, icon: "🌾", color: "#d97706", bg: "rgba(245,158,11,0.12)", desc: "Farmer profiles you manage" },
+    { label: "Total Marketplace", value: allFarmersCount, icon: "🌍", color: "#4f46e5", bg: "rgba(79,70,229,0.12)", desc: "All farmers on platform" },
+    { label: "Account Status", value: "Active", icon: "✅", color: "#10b981", bg: "rgba(16,185,129,0.12)", desc: "Your account is verified" },
+    { label: "Platform Health", value: "100%", icon: "⚡", color: "#8b5cf6", bg: "rgba(139,92,246,0.12)", desc: "Direct trade engine online" },
   ];
 
   return (
@@ -113,7 +114,7 @@ function Dashboard() {
         .dash-stat-card:hover {
           transform: translateY(-5px);
           box-shadow: 0 20px 40px -8px rgba(0,0,0,0.12);
-          border-color: #bbf7d0;
+          border-color: #cbd5e1;
         }
         .dash-farmer-card {
           background: #fff;
@@ -130,7 +131,7 @@ function Dashboard() {
         .dash-farmer-card:hover {
           transform: translateY(-6px);
           box-shadow: 0 24px 50px -10px rgba(0,0,0,0.14);
-          border-color: #86efac;
+          border-color: #818cf8;
         }
         .dash-btn-edit {
           display: inline-flex;
@@ -165,7 +166,7 @@ function Dashboard() {
           font-size: 0.85rem;
           cursor: pointer;
           transition: all 0.2s ease;
-          box-shadow: 0 4px 12px rgba(239,68,68,0.22);
+          boxShadow: 0 4px 12px rgba(239,68,68,0.22);
           font-family: inherit;
         }
         .dash-btn-delete:hover:not(:disabled) {
@@ -187,8 +188,8 @@ function Dashboard() {
           animation: dashScale 0.4s ease-out forwards;
         }
         .dash-empty-state:hover {
-          border-color: #86efac;
-          background: #f0fdf4;
+          border-color: #818cf8;
+          background: #f8fafc;
         }
         .dash-add-cta {
           display: inline-flex;
@@ -196,19 +197,18 @@ function Dashboard() {
           gap: 8px;
           padding: 14px 28px;
           border-radius: 12px;
-          background: #fff;
-          color: #15803d;
+          background: linear-gradient(135deg, #f59e0b, #d97706);
+          color: #fff;
           font-weight: 700;
           font-size: 0.95rem;
           text-decoration: none;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+          box-shadow: 0 10px 30px rgba(245,158,11,0.3);
           transition: all 0.25s ease;
           font-family: 'Plus Jakarta Sans', sans-serif;
         }
         .dash-add-cta:hover {
           transform: translateY(-3px);
-          box-shadow: 0 16px 40px rgba(0,0,0,0.2);
-          background: #f0fdf4;
+          box-shadow: 0 16px 40px rgba(245,158,11,0.45);
         }
       `}</style>
 
@@ -217,7 +217,7 @@ function Dashboard() {
       {/* ── Hero ── */}
       <div
         style={{
-          background: "linear-gradient(135deg, #14532d 0%, #15803d 40%, #166534 100%)",
+          background: "linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #1e293b 100%)",
           backgroundSize: "200% 200%",
           animation: "heroShift 10s ease infinite",
           padding: "130px 24px 90px",
@@ -229,7 +229,7 @@ function Dashboard() {
         {/* glow */}
         <div style={{
           position: "absolute", inset: 0, pointerEvents: "none",
-          background: "radial-gradient(ellipse 70% 60% at 65% 40%, rgba(74,222,128,0.18) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse 70% 60% at 65% 40%, rgba(245,158,11,0.2) 0%, transparent 70%)",
         }} />
         {/* wave bottom */}
         <div style={{
@@ -256,11 +256,11 @@ function Dashboard() {
             {/* avatar */}
             <div style={{
               width: 68, height: 68, borderRadius: "50%",
-              background: "linear-gradient(135deg, #4ade80, #16a34a)",
+              background: "linear-gradient(135deg, #f59e0b, #d97706)",
               display: "flex", alignItems: "center", justifyContent: "center",
               fontSize: "1.7rem", fontWeight: 800, color: "#fff",
               border: "3px solid rgba(255,255,255,0.28)",
-              boxShadow: "0 8px 24px rgba(0,0,0,0.22)",
+              boxShadow: "0 8px 24px rgba(245,158,11,0.35)",
               flexShrink: 0,
             }}>
               {(user.name || "F")[0].toUpperCase()}
@@ -291,10 +291,34 @@ function Dashboard() {
             </div>
           </div>
 
-          <Link to="/add-farmer" className="dash-add-cta">
-            <span style={{ fontSize: "1.1rem" }}>➕</span>
-            Register New Farmer
-          </Link>
+          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+            <Link to="/add-farmer" className="dash-add-cta">
+              <span style={{ fontSize: "1.1rem" }}>➕</span>
+              Register New Farmer
+            </Link>
+            <Link
+              to="/ai"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 24px",
+                borderRadius: 12, background: "rgba(255,255,255,0.15)", backdropFilter: "blur(8px)",
+                color: "#fff", fontWeight: 700, fontSize: "0.95rem", textDecoration: "none",
+                border: "1px solid rgba(255,255,255,0.25)", transition: "all 0.25s ease",
+              }}
+            >
+              <span>🌿</span> AI Advisor
+            </Link>
+            <Link
+              to="/marketplace"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 24px",
+                borderRadius: 12, background: "rgba(255,255,255,0.15)", backdropFilter: "blur(8px)",
+                color: "#fff", fontWeight: 700, fontSize: "0.95rem", textDecoration: "none",
+                border: "1px solid rgba(255,255,255,0.25)", transition: "all 0.25s ease",
+              }}
+            >
+              <span>🛒</span> Marketplace
+            </Link>
+          </div>
         </div>
       </div>
 
