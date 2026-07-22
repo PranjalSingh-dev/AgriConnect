@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Loader from "../components/ui/Loader";
+import Toast from "../components/ui/Toast";
 
 function AIAssistant() {
   const [crop, setCrop] = useState("");
@@ -9,6 +10,23 @@ function AIAssistant() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [advice, setAdvice] = useState(null);
+  const [history, setHistory] = useState([]);
+  const [toast, setToast] = useState(null);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("agri_ai_history");
+      if (saved) setHistory(JSON.parse(saved));
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
+
+  const showToast = (message, type = "success") => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000);
+  };
 
   const handleGetAdvice = async (e) => {
     e.preventDefault();
@@ -20,6 +38,7 @@ function AIAssistant() {
     setLoading(true);
     setError("");
     setAdvice(null);
+    setCopied(false);
 
     try {
       const res = await fetch("http://localhost:5000/api/ai/crop-advice", {
@@ -40,6 +59,18 @@ function AIAssistant() {
       }
 
       setAdvice(result.data);
+
+      const newItem = {
+        crop: crop.trim(),
+        symptoms: symptoms.trim(),
+        advice: result.data,
+        date: new Date().toLocaleDateString(),
+      };
+      const updated = [newItem, ...history.slice(0, 4)];
+      setHistory(updated);
+      localStorage.setItem("agri_ai_history", JSON.stringify(updated));
+
+      showToast("Diagnosis generated successfully!");
     } catch (err) {
       console.error(err);
       setError(err.message || "Something went wrong. Please check your backend connection.");
@@ -55,6 +86,19 @@ function AIAssistant() {
     setAdvice(null);
   };
 
+  const handleCopyAdvice = () => {
+    if (!advice) return;
+    const text = `🌱 AgriConnect Crop Diagnosis for ${crop}:
+• Disease: ${advice.disease}
+• Cause: ${advice.cause}
+• Treatment: ${advice.treatment}
+• Prevention: ${advice.prevention}`;
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    showToast("Diagnosis report copied to clipboard!");
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <>
       <Navbar />
@@ -63,7 +107,7 @@ function AIAssistant() {
         style={{
           paddingTop: "120px",
           paddingBottom: "80px",
-          background: "linear-gradient(135deg, #f0fdf4 0%, #ffffff 50%, #f0fdf4 100%)",
+          background: "linear-gradient(135deg, #f8fafc 0%, #e0e7ff 40%, #f8fafc 100%)",
           minHeight: "100vh",
         }}
       >
@@ -73,9 +117,9 @@ function AIAssistant() {
             <span
               style={{
                 display: "inline-block",
-                background: "rgba(22, 163, 74, 0.08)",
-                color: "#16a34a",
-                border: "1px solid rgba(22, 163, 74, 0.2)",
+                background: "rgba(79, 70, 229, 0.1)",
+                color: "#4f46e5",
+                border: "1px solid rgba(79, 70, 229, 0.25)",
                 borderRadius: "99px",
                 padding: "6px 20px",
                 fontSize: "0.85rem",
@@ -85,7 +129,7 @@ function AIAssistant() {
                 marginBottom: "16px",
               }}
             >
-              🌿 Smart Farming Advisor
+              🤖 Smart Farming Advisor
             </span>
             <h1
               style={{
@@ -116,7 +160,7 @@ function AIAssistant() {
             <div
               style={{
                 background: "#ffffff",
-                border: "1px solid rgba(22, 163, 74, 0.12)",
+                border: "1px solid rgba(79, 70, 229, 0.15)",
                 borderRadius: "24px",
                 boxShadow: "0 12px 40px rgba(0, 0, 0, 0.04)",
                 padding: "32px",
@@ -154,7 +198,7 @@ function AIAssistant() {
                   <input
                     type="text"
                     id="advisor-crop"
-                    placeholder="e.g., Tomato, Wheat, Cotton"
+                    placeholder="e.g., Tomato, Wheat, Cotton, Rice"
                     value={crop}
                     onChange={(e) => setCrop(e.target.value)}
                     style={{
@@ -166,7 +210,7 @@ function AIAssistant() {
                       outline: "none",
                       transition: "border-color 0.2s",
                     }}
-                    onFocus={(e) => (e.target.style.borderColor = "#16a34a")}
+                    onFocus={(e) => (e.target.style.borderColor = "#4f46e5")}
                     onBlur={(e) => (e.target.style.borderColor = "var(--gray-200)")}
                   />
                 </div>
@@ -200,7 +244,7 @@ function AIAssistant() {
                       resize: "none",
                       transition: "border-color 0.2s",
                     }}
-                    onFocus={(e) => (e.target.style.borderColor = "#16a34a")}
+                    onFocus={(e) => (e.target.style.borderColor = "#4f46e5")}
                     onBlur={(e) => (e.target.style.borderColor = "var(--gray-200)")}
                   />
                 </div>
@@ -231,12 +275,12 @@ function AIAssistant() {
                     padding: "14px 24px",
                     borderRadius: "12px",
                     border: "none",
-                    background: "linear-gradient(135deg, #16a34a, #22c55e)",
+                    background: "linear-gradient(135deg, #4f46e5, #3b82f6)",
                     color: "#ffffff",
                     fontSize: "1.05rem",
                     fontWeight: 700,
                     cursor: loading ? "not-allowed" : "pointer",
-                    boxShadow: "0 6px 20px rgba(22, 163, 74, 0.2)",
+                    boxShadow: "0 6px 20px rgba(79, 70, 229, 0.3)",
                     transition: "all 0.2s",
                   }}
                   onMouseEnter={(e) => {
@@ -252,18 +296,18 @@ function AIAssistant() {
                     }
                   }}
                 >
-                  Get AI Advice
+                  {loading ? "Analyzing Crop Symptoms..." : "Get AI Advice"}
                 </button>
               </form>
 
               {/* Quick Fill suggestions */}
               <div style={{ marginTop: "28px", borderTop: "1px solid var(--gray-100)", paddingTop: "20px" }}>
                 <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--gray-400)", textTransform: "uppercase" }}>
-                  Quick Examples
+                  Quick Sample Prompts
                 </span>
                 <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "10px" }}>
                   <button
-                    onClick={() => handleQuickFill("Tomato", "Leaves turning yellow with brown spots")}
+                    onClick={() => handleQuickFill("Tomato", "Leaves turning yellow with dark brown spots")}
                     style={{
                       background: "var(--gray-50)",
                       border: "1px solid var(--gray-200)",
@@ -276,10 +320,10 @@ function AIAssistant() {
                     onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#16a34a")}
                     onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--gray-200)")}
                   >
-                    🍅 Tomato blight
+                    🍅 Tomato Blight
                   </button>
                   <button
-                    onClick={() => handleQuickFill("Wheat", "Brown leaves and dry spots")}
+                    onClick={() => handleQuickFill("Wheat", "Brown leaf rust lesions and dry tips")}
                     style={{
                       background: "var(--gray-50)",
                       border: "1px solid var(--gray-200)",
@@ -293,6 +337,22 @@ function AIAssistant() {
                     onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--gray-200)")}
                   >
                     🌾 Wheat Rust
+                  </button>
+                  <button
+                    onClick={() => handleQuickFill("Rice", "Spindle shaped lesions on leaves with pale green centers")}
+                    style={{
+                      background: "var(--gray-50)",
+                      border: "1px solid var(--gray-200)",
+                      borderRadius: "8px",
+                      padding: "6px 12px",
+                      fontSize: "0.85rem",
+                      cursor: "pointer",
+                      transition: "all 0.2s",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#16a34a")}
+                    onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--gray-200)")}
+                  >
+                    🍚 Rice Blast
                   </button>
                 </div>
               </div>
@@ -347,7 +407,7 @@ function AIAssistant() {
                       color: "var(--gray-800)",
                     }}
                   >
-                    Loading...
+                    Analyzing crop...
                   </h3>
                   <p style={{ color: "var(--gray-400)", fontSize: "0.9rem", marginTop: "6px" }}>
                     Gemini AI is examining crop symptoms...
@@ -358,24 +418,41 @@ function AIAssistant() {
               {/* State 3: Output Card */}
               {advice && (
                 <div id="advisor-output" style={{ animation: "scaleIn 0.3s ease-out" }}>
-                  <span
-                    style={{
-                      display: "inline-block",
-                      background: "rgba(22, 163, 74, 0.08)",
-                      color: "#16a34a",
-                      borderRadius: "8px",
-                      padding: "4px 10px",
-                      fontSize: "0.8rem",
-                      fontWeight: 700,
-                      marginBottom: "16px",
-                    }}
-                  >
-                    Diagnosis Report
-                  </span>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+                    <span
+                      style={{
+                        display: "inline-block",
+                        background: "rgba(22, 163, 74, 0.08)",
+                        color: "#16a34a",
+                        borderRadius: "8px",
+                        padding: "4px 10px",
+                        fontSize: "0.8rem",
+                        fontWeight: 700,
+                      }}
+                    >
+                      Diagnosis Report
+                    </span>
+                    <button
+                      onClick={handleCopyAdvice}
+                      style={{
+                        background: copied ? "#dcfce7" : "#f1f5f9",
+                        color: copied ? "#15803d" : "#475569",
+                        border: "none",
+                        borderRadius: "8px",
+                        padding: "6px 12px",
+                        fontSize: "0.8rem",
+                        fontWeight: 600,
+                        cursor: "pointer",
+                        transition: "all 0.2s",
+                      }}
+                    >
+                      {copied ? "✓ Copied" : "📋 Copy Advice"}
+                    </button>
+                  </div>
 
                   <div style={{ marginBottom: "20px" }}>
                     <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--gray-400)", textTransform: "uppercase" }}>
-                      Possible Disease
+                      Possible Issue
                     </span>
                     <h3 style={{ fontSize: "1.4rem", fontWeight: 900, color: "var(--gray-800)", marginTop: "4px" }}>
                       {advice.disease}
@@ -414,9 +491,48 @@ function AIAssistant() {
               )}
             </div>
           </div>
+
+          {/* Recent History Section */}
+          {history.length > 0 && (
+            <div style={{ marginTop: "60px" }}>
+              <h3 style={{ fontSize: "1.2rem", fontWeight: 800, color: "var(--gray-800)", marginBottom: "16px" }}>
+                📜 Recent AI Diagnoses
+              </h3>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "16px" }}>
+                {history.map((h, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => { setCrop(h.crop); setSymptoms(h.symptoms); setAdvice(h.advice); }}
+                    style={{
+                      background: "#fff",
+                      borderRadius: "16px",
+                      padding: "16px",
+                      border: "1px solid var(--gray-200)",
+                      cursor: "pointer",
+                      transition: "all 0.2s",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#16a34a")}
+                    onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--gray-200)")}
+                  >
+                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
+                      <span style={{ fontWeight: 700, color: "#16a34a", fontSize: "0.9rem" }}>🌾 {h.crop}</span>
+                      <span style={{ fontSize: "0.75rem", color: "var(--gray-400)" }}>{h.date}</span>
+                    </div>
+                    <p style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--gray-800)", margin: "4px 0" }}>
+                      {h.advice?.disease}
+                    </p>
+                    <p style={{ fontSize: "0.78rem", color: "var(--gray-500)", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      {h.symptoms}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
+      {toast && <Toast message={toast.message} type={toast.type} />}
       <Footer />
     </>
   );
