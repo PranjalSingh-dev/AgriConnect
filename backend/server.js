@@ -16,7 +16,7 @@ connectDB();
 
 const app = express();
 
-// CORS setup — allow production Vercel frontend URL via CLIENT_URL env var, plus localhost for dev
+// CORS setup — allow production Vercel frontend URLs, Render domains, CLIENT_URL env var, and localhost
 const allowedOrigins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
@@ -24,17 +24,27 @@ const allowedOrigins = [
     "http://127.0.0.1:5174",
 ];
 if (process.env.CLIENT_URL) {
-    allowedOrigins.push(process.env.CLIENT_URL);
+    allowedOrigins.push(process.env.CLIENT_URL.replace(/\/$/, ""));
 }
+
 app.use(
     cors({
         origin: (origin, callback) => {
-            // Allow requests with no origin (mobile apps, curl, Postman)
-            if (!origin || allowedOrigins.includes(origin)) {
-                callback(null, true);
-            } else {
-                callback(new Error(`CORS blocked for origin: ${origin}`));
+            // Allow requests with no origin (mobile apps, curl, Postman, direct browser hits)
+            if (!origin) return callback(null, true);
+
+            const cleanOrigin = origin.replace(/\/$/, "");
+
+            // Allow explicitly listed origins, any *.vercel.app deployment, or *.onrender.com domain
+            if (
+                allowedOrigins.includes(cleanOrigin) ||
+                /\.vercel\.app$/.test(cleanOrigin) ||
+                /\.onrender\.com$/.test(cleanOrigin)
+            ) {
+                return callback(null, true);
             }
+
+            callback(new Error(`CORS blocked for origin: ${origin}`));
         },
         credentials: true,
     })
