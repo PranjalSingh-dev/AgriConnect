@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Card from "../components/Card";
 import Loader from "../components/ui/Loader";
+import API_BASE_URL from "../config/api";
 
 const CROPS = ["All", "Wheat", "Rice", "Cotton", "Vegetables", "Maize", "Fruits"];
 
@@ -14,7 +15,7 @@ function Marketplace() {
   const [selectedCrop, setSelectedCrop] = useState("All");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/farmers")
+    fetch(`${API_BASE_URL}/api/farmers`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch farmers");
         return res.json();

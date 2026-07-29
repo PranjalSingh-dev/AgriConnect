@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Toast from "../components/ui/Toast";
 import Loader from "../components/ui/Loader";
+import API_BASE_URL from "../config/api";
 
 function Login() {
   const [tab, setTab] = useState("login"); // "login" | "register"
@@ -66,8 +67,8 @@ function Login() {
       setLoading(true);
       const url =
         tab === "login"
-          ? "http://localhost:5000/api/auth/login"
-          : "http://localhost:5000/api/auth/register";
+          ? `${API_BASE_URL}/api/auth/login`
+          : `${API_BASE_URL}/api/auth/register`;
 
       const res = await fetch(url, {
         method: "POST",
@@ -108,7 +109,7 @@ function Login() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:5000/api/auth/google";
+    window.location.href = `${API_BASE_URL}/api/auth/google`;
   };
 
   return (

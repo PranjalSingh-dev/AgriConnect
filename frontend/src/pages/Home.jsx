@@ -5,6 +5,7 @@ import Hero from "../components/Hero";
 import Card from "../components/Card";
 import Footer from "../components/Footer";
 import Loader from "../components/ui/Loader";
+import API_BASE_URL from "../config/api";
 
 const features = [
   {
@@ -44,7 +45,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/farmers")
+    fetch(`${API_BASE_URL}/api/farmers`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success && Array.isArray(data.data)) {

@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import Card from "../components/Card";
 import Loader from "../components/ui/Loader";
 import Toast from "../components/ui/Toast";
+import API_BASE_URL from "../config/api";
 
 function Dashboard() {
   const [myFarmers, setMyFarmers] = useState([]);
@@ -25,7 +26,7 @@ function Dashboard() {
   const fetchFarmers = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/api/farmers");
+      const res = await fetch(`${API_BASE_URL}/api/farmers`);
       const data = await res.json();
       if (data.success) {
         setAllFarmersCount(data.count);
@@ -53,7 +54,7 @@ function Dashboard() {
     if (!window.confirm("Are you sure you want to delete this farmer listing?")) return;
     try {
       setDeletingId(id);
-      const res = await fetch(`http://localhost:5000/api/farmers/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/farmers/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

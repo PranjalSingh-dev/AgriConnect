@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Toast from "../components/ui/Toast";
 import Loader from "../components/ui/Loader";
+import API_BASE_URL from "../config/api";
 
 function AddFarmer() {
   const { id } = useParams();
@@ -38,7 +39,7 @@ function AddFarmer() {
       const fetchFarmerDetails = async () => {
         try {
           setFetching(true);
-          const res = await fetch(`http://localhost:5000/api/farmers/${id}`);
+          const res = await fetch(`${API_BASE_URL}/api/farmers/${id}`);
           const data = await res.json();
           if (data.success) {
             setForm({
@@ -86,8 +87,8 @@ function AddFarmer() {
       setLoading(true);
 
       const url = isEditMode
-        ? `http://localhost:5000/api/farmers/${id}`
-        : "http://localhost:5000/api/farmers";
+        ? `${API_BASE_URL}/api/farmers/${id}`
+        : `${API_BASE_URL}/api/farmers`;
       const method = isEditMode ? "PUT" : "POST";
 
       const res = await fetch(url, {

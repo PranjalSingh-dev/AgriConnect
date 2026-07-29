@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Loader from "../components/ui/Loader";
 import Toast from "../components/ui/Toast";
+import API_BASE_URL from "../config/api";
 
 function AIAssistant() {
   const [crop, setCrop] = useState("");
@@ -41,7 +42,7 @@ function AIAssistant() {
     setCopied(false);
 
     try {
-      const res = await fetch("http://localhost:5000/api/ai/crop-advice", {
+      const res = await fetch(`${API_BASE_URL}/api/ai/crop-advice`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
