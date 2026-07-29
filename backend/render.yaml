@@ -1,0 +1,23 @@
+# Render Infrastructure-as-Code Blueprint
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: agriconnect-api
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false   # Set this manually in Render dashboard (your MongoDB Atlas URI)
+      - key: JWT_SECRET
+        sync: false   # Set this manually in Render dashboard
+      - key: GEMINI_API_KEY
+        sync: false   # Set this manually in Render dashboard
+      - key: CLIENT_URL
+        sync: false   # Set to your Vercel frontend URL, e.g. https://agriconnect.vercel.app

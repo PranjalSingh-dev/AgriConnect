@@ -358,7 +358,8 @@ const handleGoogleSimulateCallback = async (req, res) => {
         const token = generateToken(user._id);
 
         // Redirect user back to frontend with token, name, email and id in the query string
-        res.redirect(`http://localhost:5173/login?token=${token}&email=${encodeURIComponent(user.email)}&name=${encodeURIComponent(user.name)}&id=${user._id}`);
+        const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
+        res.redirect(`${clientUrl}/login?token=${token}&email=${encodeURIComponent(user.email)}&name=${encodeURIComponent(user.name)}&id=${user._id}`);
     } catch (error) {
         console.error("OAuth Callback Error:", error.message);
         res.status(500).send("OAuth authentication failed");
