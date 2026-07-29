@@ -41,7 +41,7 @@ AgriConnect is a full-stack web application developed as part of the **TBI Inter
 | Backend | Node.js, Express.js, MongoDB, Mongoose |
 | Auth | bcryptjs, JWT, express-rate-limit |
 | Validation | Zod |
-| AI | **@google/generative-ai** (Gemini 2.5 Flash) |
+| AI | @google/generative-ai (Gemini 2.5 Flash) |
 
 ---
 
@@ -204,52 +204,6 @@ POST /api/ai/crop-advice
 | POST | `/api/auth/login` | Login, returns JWT |
 | GET | `/api/auth/google` | Google OAuth |
 
----
-
-## ✅ Internship Deliverables
-
-### Week 4 — REST API & Frontend Integration
-- Express backend, REST APIs, CRUD, search & filter, React frontend
-
-### Week 5 — Database Design
-- MongoDB + Mongoose, schema validation, database seeding
-
-### Week 6 — Authentication & Security
-- JWT auth, bcrypt, Zod validation, protected routes, rate limiting
-
-### Week 7 — AI Feature Integration ⭐
-- ✅ Google Gemini 2.5 Flash API integrated in backend
-- ✅ Dedicated endpoint `POST /api/ai/crop-advice`
-- ✅ Frontend AI Advisor form with input fields and structured output cards
-- ✅ Loading spinner while AI generates response
-- ✅ Error handling with user-friendly messages and mock fallback
-- ✅ API key secured in `.env` (not committed)
-- ✅ `PROMPTS.md` — 3 prompt variations, example I/O, best prompt analysis
-- ✅ `W7_AIFeatureDemo_TBI-26100412.pdf` — 4 demo screenshots
-
----
-
-## 📝 Weekly Progress Report — Week 7
-
-This week I implemented an AI-Powered Crop Advisor using the Google Gemini 2.5 Flash API.
-
-**Features:**
-- ✔ Backend Gemini API integration (`services/gemini.service.js`)
-- ✔ Dedicated REST endpoint (`POST /api/ai/crop-advice`)
-- ✔ Frontend AI Advisor UI (`pages/AIAssistant.jsx`)
-- ✔ Loading state — spinner with "Loading..." text
-- ✔ Error handling — user-friendly messages
-- ✔ API key secured in `.env`
-- ✔ Prompt engineering — structured JSON output for consistent UI
-
-**Challenges:**
-- Gemini 1.5 Flash was retired → switched to `gemini-2.5-flash`
-- CORS errors on port 5174 → added to allowed origins list
-- Gemini wrapping JSON in markdown → added cleanup logic
-
-**Outcome:** Farmers can now type a crop name and describe symptoms to get an instant, AI-generated diagnosis with treatment and prevention advice.
-
----
 
 ## 👤 Author
 
@@ -343,44 +297,7 @@ GitHub: [PranjalSingh-dev/AgriConnect](https://github.com/PranjalSingh-dev/AgriC
 
 ---
 
-### 📋 Week 9 Deliverables
 
-#### Deliverable 1: Live Public App URL
-- **Frontend:** https://agriconnect.vercel.app
-- All core features must work: pages load, register/login, CRUD, AI feature, OAuth
-
-#### Deliverable 2: Deployment Documentation
-This README section covers: live URLs, tech stack, deployment steps, and known free-tier limitations.
-
-#### Deliverable 3: Peer Testing Feedback Template
-Test 2 classmates' apps and post for each:
-> **App:** [classmate's URL]  
-> ✅ **What works well:** [specific feature]  
-> 🐛 **Bug found:** [steps to reproduce the issue]
-
-#### Deliverable 4: Deployment Screenshots PDF
-`W9_DeploymentProof_TBI-26100412.pdf` — 4 screenshots required:
-1. Vercel dashboard showing successful deployment
-2. Render dashboard showing running web service
-3. Live app home page with the Vercel URL visible in browser
-4. Live app AI Advisor feature or Login flow
-
----
-
-### 📝 Weekly Progress Report — Week 9
-
-**What I did this week:**
-- ✔ Centralized all API URLs into `frontend/src/config/api.js` using `VITE_API_URL` env var
-- ✔ Replaced 10 hardcoded `http://localhost:5000` occurrences across 6 frontend pages
-- ✔ Added `frontend/vercel.json` for SPA routing on Vercel
-- ✔ Configured dynamic CORS in backend using `process.env.CLIENT_URL`
-- ✔ Updated OAuth redirect to use `process.env.CLIENT_URL` for production
-- ✔ Created `backend/render.yaml` Render blueprint
-- ✔ Verified production build: 0 errors, 44 modules, 326KB bundle
-- ✔ Updated all `.env.example` files with `CLIENT_URL` documentation
-
-**Challenges:**
-- CORS dynamic origin configuration — solved with origin callback function
 - SPA routing 404 on Vercel — solved with `vercel.json` rewrite rule
 - Render free-tier cold starts — documented as known limitation
 
